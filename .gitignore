@@ -1,0 +1,9 @@
+__pycache__/
+*.lock
+bazel-*
+MODULE.bazel
+build
+*buddha.obj
+.scache/*
+
+.scache/*
