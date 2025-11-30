@@ -1,5 +1,6 @@
 #include "viewport.h"
 #include "data/input.h"
+#include "compositor/compositor.h"
 #include <easylogger.h>
 #include <rlgl.h>
 
@@ -14,9 +15,11 @@ void DrawViewportPanel(float width, float height) {
 }
 
 void UpdateViewportPanel(float width, float height) {
+	RenderComposite();
     BeginTextureMode(g_viewport_target);
     rlSetBlendFactorsSeparate(RL_SRC_ALPHA, RL_ONE_MINUS_SRC_ALPHA, RL_ONE, RL_ONE, RL_FUNC_ADD, RL_MAX);
     BeginBlendMode(BLEND_CUSTOM_SEPARATE);
+    DrawComposite(0, 0, width, height);
     EndBlendMode();
     EndTextureMode();
 }

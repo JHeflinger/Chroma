@@ -7,6 +7,9 @@
 #include "ui/ui.h"
 #include "ui/panels/diagnostics.h"
 #include "ui/panels/viewport.h"
+#include "ui/panels/edit.h"
+#include "compositor/compositor.h"
+#include "core/global.h"
 #include <raylib.h>
 #include <easymemory.h>
 
@@ -22,10 +25,16 @@ void InitEditor() {
     InitializeInput();
     InitializeColors();
     InitializeAssets();
+    LoadComposite(Global()->filepath);
     g_ui = GenerateUI();
     g_ui->left = GenerateUI();
     g_ui->right = GenerateUI();
-    ConfigureDiagnosticsPanel(&(((UI*)(g_ui->right))->panel));
+	((UI*)g_ui->right)->right = GenerateUI();
+	((UI*)g_ui->right)->left = GenerateUI();
+	((UI*)g_ui->right)->divide = GetScreenHeight() / 7.0f;
+	((UI*)g_ui->right)->vertical = TRUE;
+    ConfigureDiagnosticsPanel(&(((UI*)((UI*)(g_ui->right))->left)->panel));
+    ConfigureEditPanel(&(((UI*)((UI*)(g_ui->right))->right)->panel));
     ConfigureViewportPanel(&(((UI*)(g_ui->left))->panel));
     g_ui->divide = (3 * GetScreenWidth())/4;
 }
@@ -46,6 +55,7 @@ void DrawEditor() {
 void CleanEditor() {
     DestroyUI(g_ui);
     DestroyAssets();
+	CleanComposite();
     CloseWindow();
 }
 

@@ -5,8 +5,6 @@
 BOOL g_vsync_enabled = TRUE;
 BOOL g_time_paused = TRUE;
 
-float poop = 0.0f;
-
 void DrawDevPanel(float width, float height) {
     UIDrawText("Application FPS: %d", (int)(1.0f / GetFrameTime()));
     UIDrawText("Frame time: %.6f ms", (1000.0f * GetFrameTime()));
